@@ -100,22 +100,17 @@ int main(void)
   HAL_GPIO_WritePin(D13_GPIO_Port, D13_Pin, GPIO_PIN_RESET);
   HAL_Delay(2000);
 
-  // TODO set up RTC, checking if it's already been set up
-  bool is_initial_setup = true; // TODO how to know?
+  // Set up RTC, checking if it's already been set up
+  bool is_initial_setup = true;
   uint32_t current_time_utc = 1705968815;
   bool rv_3028_setup_ok = init_rv_3028_c7(hi2c1, current_time_utc, is_initial_setup);
 
 
-  // TODO do to shutdown mode, with pin wakeup. Shouldn't get past this
-  /* Disable used wakeup source: PWR_WAKEUP_PIN2 */
+  // Go to shutdown mode, with pin wakeup.
   HAL_PWR_DisableWakeUpPin(PWR_WAKEUP_PIN1);
-//  HAL_PWR_DisableWakeUpPin(PWR_WAKEUP_PIN2);
-//  HAL_PWR_DisableWakeUpPin(PWR_WAKEUP_PIN3);
-//  HAL_PWR_DisableWakeUpPin(PWR_WAKEUP_PIN4);
-//  HAL_PWR_DisableWakeUpPin(PWR_WAKEUP_PIN5);
 
 
-  /* Enable wakeup pin WKUP2 */
+  /* Enable wakeup pin WKUP1 */
   HAL_PWREx_EnableGPIOPullDown(PWR_GPIO_C, PWR_GPIO_BIT_14);
   HAL_PWREx_EnableGPIOPullDown(PWR_GPIO_C, PWR_GPIO_BIT_15);
   HAL_PWREx_EnableGPIOPullUp(PWR_GPIO_A, PWR_GPIO_BIT_0);
